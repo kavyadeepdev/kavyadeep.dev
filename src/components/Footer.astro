@@ -1,0 +1,16 @@
+---
+
+---
+
+<footer id="site-footer">
+	<small>
+		Copyright &copy; Kavyadeep Dev, <span id="copyright"></span>
+	</small>
+</footer>
+
+<script>
+	const copyrightElement: HTMLElement | null = document.querySelector("#copyright");
+	if (copyrightElement) {
+		copyrightElement.textContent = new Date().getFullYear().toString();
+	}
+</script>

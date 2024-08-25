@@ -1,0 +1,28 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+const posts = await Astro.glob("./blog/*.md");
+---
+
+<MainLayout title="Kavyadeep Dev" description="home page">
+	<section class="hero mb-24">
+		<h2 class="mb-8"><span class="text-4xl font-bold">Hey, I'm Kavyadeep 👋</span></h2>
+		<p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea necessitatibus quisquam numquam corporis velit vel asperiores, suscipit quaerat repellendus fugiat maxime ullam deleniti magnam dolorum? Reiciendis quasi perspiciatis velit nihil.</p>
+		<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit hic alias voluptates natus. Libero inventore ratione repudiandae, repellendus quis exercitationem optio maiores, quo veritatis soluta cupiditate facere explicabo id dolores.</p>
+	</section>
+	<div class="">
+		<h3 class="border-b-2 border-double text-2xl font-bold mb-4">Recent posts</h3>
+	{
+		posts.map(post => (
+			<a href={post.url}>
+				<div class="post mb-2">
+					<h2 class="text-cyan-500 text-xl font-bold">
+						<span class="underline">{post.frontmatter.title}</span>
+					</h2>
+					<h3 class="text-zinc-400 italic">{post.frontmatter.date}</h3>
+				</div>
+			</a>
+		))
+	}
+	</div>
+</MainLayout>

@@ -1,0 +1,69 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const navlinks = [
+	{
+		name: "Blog",
+		url: "/blog/",
+	},
+	{
+		name: "Repos",
+		url: "/repos/",
+	},
+	{
+		name: "About",
+		url: "/about/",
+	},
+	{
+		name: "Contact",
+		url: "/contact/",
+	},
+	{
+		name: "Guestbook",
+		url: "/guestbook/",
+	},
+]
+---
+<header id="site-header">
+	<nav id="site-nav">
+		<div class="left">
+			<a id="website-title" href="/" aria-label="go home">Kavyadeep Dev</a>
+		</div>
+		<div class="center">
+			{
+				navlinks.map(navlink => (
+						<a class="text-lg hover:underline hover:text-white" href={navlink.url}>{navlink.name}</a>
+					)
+				)
+			}
+		</div>
+		<div class="right">
+			<ul>
+				<li>
+					<a id="github" href="https://github.com/kavyadeepdev/" target="_blank">
+						<Icon name="mdi:github" size="28" />
+					</a>
+				</li>
+				<li>
+					<a id="rss" href="#" target="_blank">
+						<Icon name="ri:rss-fill" size="28" />
+					</a>
+				</li>
+				<li>
+					<button id="theme-switcher">
+						<Icon class="" name="ph:sun-bold" size="28" />
+					</button>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+
+<script>
+	const navlinks = document.querySelectorAll("nav a")
+	navlinks.forEach(link => {
+		if (link.getAttribute("href") === window.location.pathname) {
+			link.classList.add("underline");
+		}
+	})
+</script>

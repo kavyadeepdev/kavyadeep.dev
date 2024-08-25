@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+* {
+	font-family: "Fira Code";
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #030712;
+	color: #d1d5db;
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	align-items: center;
+}
+
+#site-header {
+	width: 100vw;
+	padding: 3rem 5rem;
+}
+
+#site-nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.left,
+.center,
+.right {
+	display: flex;
+	align-items: center;
+}
+
+.left {
+	justify-content: start;
+}
+.center {
+	width: 32rem;
+	justify-content: space-between;
+}
+.right {
+	justify-content: end;
+}
+.right ul {
+	display: flex;
+	width: 8rem;
+	justify-content: space-between;
+}
+
+#website-title {
+	font-size: 1.25rem;
+}
+
+#github:hover {
+	color: #ffffff;
+}
+
+#rss:hover {
+	color: #f59e0b;
+}
+
+#theme-switcher:hover {
+	color: #ffffff;
+}
+
+/* Content */
+.main {
+	width: 48rem;
+	padding: 6rem 0;
+}
+
+.blog h1 {
+	font-size: 1.5rem;
+	font-weight: 700;
+	border-bottom: 2px solid #d1d5db;
+	margin-bottom: 2rem;
+}
+
+/*  Footer */
+
+#site-footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem 0;
+}
+
+/* Media Queries */
+
+@media (max-width: 68rem) {
+	.right {
+		display: none;
+	}
+}
+
+@media (max-width: 54rem) {
+	.center {
+		display: none;
+	}
+	.main {
+		width: 100vw;
+		padding: 4rem;
+	}
+}
