@@ -19,7 +19,7 @@ body {
 }
 
 #site-header {
-	width: 100vw;
+	width: 100%;
 	padding: 3rem 5rem;
 }
 
@@ -54,6 +54,15 @@ body {
 
 #website-title {
 	font-size: 1.25rem;
+}
+
+.nav-link:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+.center a {
+	font-size: 1.125rem;
 }
 
 #github:hover {
@@ -103,7 +112,7 @@ body {
 		display: none;
 	}
 	.main {
-		width: 100vw;
+		width: 100%;
 		padding: 4rem;
 	}
 }
