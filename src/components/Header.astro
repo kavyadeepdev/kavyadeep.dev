@@ -43,7 +43,7 @@ const navlinks = [
 					<span>
 						<Icon name="mdi:arrow-drop-down" size="28" />
 					</span>
-					<span class="hidden">
+					<span class="right-hidden">
 						<Icon name="mdi:arrow-drop-up" size="28" />
 					</span>
 				</button>
@@ -96,9 +96,13 @@ const navlinks = [
 
 	const dropDown = document.querySelector("#drop-down");
 	const specBtns = document.querySelectorAll(".spec-link");
+	const dropDownElements = document.querySelectorAll("#drop-down span")
 	dropDown?.addEventListener("click", () => {
 		specBtns.forEach(specBtn => {
 			specBtn.classList.toggle("right-hidden");
+		})
+		dropDownElements?.forEach(dropDownElement => {
+			dropDownElement.classList.toggle("right-hidden");
 		})
 	})
 </script>
