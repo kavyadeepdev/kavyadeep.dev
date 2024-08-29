@@ -29,7 +29,7 @@ const navlinks = [
 		<div class="left">
 			<a id="website-title" class="nav-link" href="/" aria-label="go home">Kavyadeep Dev</a>
 		</div>
-		<div class="center">
+		<div class="center center-hidden">
 			{
 				navlinks.map(navlink => (
 						<a class="nav-link" href={navlink.url}>{navlink.name}</a>
@@ -39,23 +39,39 @@ const navlinks = [
 		</div>
 		<div class="right">
 			<ul>
-				<li>
+				<button id="drop-down">
+					<span>
+						<Icon name="mdi:arrow-drop-down" size="28" />
+					</span>
+					<span class="hidden">
+						<Icon name="mdi:arrow-drop-up" size="28" />
+					</span>
+				</button>
+				<li class="spec-link right-hidden">
 					<a id="github" href="https://github.com/kavyadeepdev/" target="_blank">
 						<Icon name="mdi:github" size="28" />
 					</a>
 				</li>
-				<li>
+				<li class="spec-link right-hidden">
 					<a id="rss" href="#" target="_blank">
 						<Icon name="ri:rss-fill" size="28" />
 					</a>
 				</li>
-				<li>
+				<li class="spec-link right-hidden">
 					<button id="theme-switcher">
 						<Icon class="" name="ph:sun-bold" size="28" />
 					</button>
 				</li>
 			</ul>
 		</div>
+		<button id="hamburger">
+			<span id="open-menu">
+				<Icon name="mdi:hamburger-menu" size="28" />
+			</span>
+			<span id="close-menu" class="center-hidden">
+				<Icon name="mdi:close" size="28" />
+			</span>
+		</button>
 	</nav>
 </header>
 
@@ -65,5 +81,24 @@ const navlinks = [
 		if (link.getAttribute("href") === window.location.pathname) {
 			link.classList.add("underline");
 		}
+	})
+	const hamburger = document.querySelector("#hamburger");
+	const openMenu = document.querySelector("#open-menu");
+	const closeMenu = document.querySelector("#close-menu");
+	const navMenu = document.querySelector(".center");
+	const mainSection = document.querySelector(".main");
+	hamburger?.addEventListener("click", () => {
+		navMenu?.classList.toggle("center-hidden");
+		openMenu?.classList.toggle("center-hidden");
+		closeMenu?.classList.toggle("center-hidden");
+		mainSection?.classList.toggle("center-hidden");
+	})
+
+	const dropDown = document.querySelector("#drop-down");
+	const specBtns = document.querySelectorAll(".spec-link");
+	dropDown?.addEventListener("click", () => {
+		specBtns.forEach(specBtn => {
+			specBtn.classList.toggle("right-hidden");
+		})
 	})
 </script>

@@ -22,6 +22,9 @@ body {
 	width: 100%;
 	padding: 3rem 5rem;
 }
+#hamburger {
+	display: none;
+}
 
 #site-nav {
 	display: flex;
@@ -52,6 +55,10 @@ body {
 	justify-content: space-between;
 }
 
+#drop-down {
+	display: none;
+}
+
 #website-title {
 	font-size: 1.25rem;
 }
@@ -74,7 +81,7 @@ body {
 }
 
 #theme-switcher:hover {
-	color: #ffffff;
+	color: #facc15;
 }
 
 /* Content */
@@ -96,23 +103,63 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 2rem 0;
+	padding: 0 0 3rem 0;
+}
+
+#site-footer #external-links {
+	display: none;
 }
 
 /* Media Queries */
 
 @media (max-width: 68rem) {
+	.center {
+		padding-right: 3.5rem;
+	}
 	.right {
+		top: 3rem;
+		right: 5rem;
+		position: absolute;
+	}
+	.right ul {
+		width: auto;
+		height: 8rem;
+		flex-direction: column;
+	}
+	#drop-down {
+		display: block;
+	}
+	.right-hidden {
 		display: none;
 	}
 }
 
 @media (max-width: 54rem) {
+	#hamburger {
+		display: block;
+		position: absolute;
+		top: 3rem;
+		margin-right: 2.5rem;
+		right: 5rem;
+	}
 	.center {
-		display: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 20rem 0;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		background-color: #030712;
 	}
 	.main {
 		width: 100%;
 		padding: 4rem;
+	}
+	.center-hidden {
+		display: none;
 	}
 }
