@@ -95,7 +95,7 @@ export default function Sidebar() {
 					download
 					className="inline-flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition"
 				>
-					<LuDownload />
+					<LuDownload size={16} />
 					Download CV
 				</a>
 			</div>
