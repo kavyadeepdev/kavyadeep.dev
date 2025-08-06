@@ -46,10 +46,11 @@ export default function Navbar() {
 				Navigation
 			</h2>
 
-			{pages.map((page) => {
+			{pages.map((page, idx) => {
 				const isActive = pathname === page.url;
 				return (
 					<Link
+						key={idx}
 						href={page.url}
 						className={`flex items-center gap-1 p-2 rounded-lg ${
 							isActive
