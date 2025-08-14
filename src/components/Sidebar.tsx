@@ -47,7 +47,7 @@ export default function Sidebar() {
 				</div>
 				<div className="flex gap-1 items-center">
 					<LuMapPin size={16} />
-					<p>Bengaluru, IN</p>
+					<p>Bengaluru, KA</p>
 				</div>
 				<div className="flex gap-1 items-center hover:text-gray-600">
 					<LuMail size={16} />
