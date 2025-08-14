@@ -44,7 +44,10 @@ export default function ProjectCard({
 
 				<div className="mt-4">
 					{tags.map((tag) => (
-						<span className="text-xs px-1.5 py-0.5 bg-gray-100 rounded-md border border-gray-200 text-gray-600 mr-2">
+						<span
+							key={`${title}-${tag}`}
+							className="text-xs px-1.5 py-0.5 bg-gray-100 rounded-md border border-gray-200 text-gray-600 mr-2"
+						>
 							{tag}
 						</span>
 					))}

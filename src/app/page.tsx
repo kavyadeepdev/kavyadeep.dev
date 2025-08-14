@@ -50,11 +50,11 @@ export default function HomePage() {
 				/>
 				<h2 className={`${calSans.className} text-gray-700 text-4xl`}>
 					{/* <div className="mb-4">👋</div> */}
-					Hi there! I'm Kavyadeep 👋
+					{`Hi there! I'm Kavyadeep 👋`}
 				</h2>
 				<div className="flex flex-col gap-3">
 					<p>
-						I'm a{" "}
+						{`I'm a`}{" "}
 						{/* <span className="px-1 border-2 border-blue-400 rounded text-gray-600"> */}
 						{/* <span className="px-2 py-1 bg-gray-100 rounded-xs"> */}
 						<span className="px-1 py-0.5 bg-gray-100 rounded-md border border-gray-200">
@@ -112,7 +112,7 @@ export default function HomePage() {
 						className="inline-flex items-center gap-2 border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-lg hover:border-blue-600 hover:text-blue-600 transition"
 					>
 						<LuPhoneCall size={16} />
-						Let's Connect
+						{`Let's Connect`}
 					</Link>
 				</div>
 			</div>
@@ -130,8 +130,8 @@ export default function HomePage() {
 					</Link>
 				</div>
 				<div className="flex flex-col">
-					{projects.map((project, idx) => (
-						<ProjectCard key={idx} {...project} />
+					{projects.map((project) => (
+						<ProjectCard key={project.title} {...project} />
 					))}
 				</div>
 			</div>
