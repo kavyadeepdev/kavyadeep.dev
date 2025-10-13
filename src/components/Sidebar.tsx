@@ -18,7 +18,7 @@ const calSans = Cal_Sans({
 
 export default function Sidebar() {
 	return (
-		<aside className="fixed top-0 left-0 h-screen w-[16rem] bg-neutral-100 pt-18 pl-6">
+		<aside className="fixed top-0 left-0 h-screen w-[17rem] bg-neutral-100 pt-8 px-4 border-r-1 border-gray-200">
 			{/* Title */}
 			<div className="flex items-center gap-2 mb-12">
 				<div className="h-10 w-10 relative">
@@ -38,18 +38,18 @@ export default function Sidebar() {
 			</div>
 			{/* Location */}
 			<div className="flex flex-col gap-2 text-sm mb-12 pl-2">
-				<h2 className="text-xs uppercase font-semibold tracking-wide text-gray-500">
+				<h2 className="text-xs uppercase font-semibold tracking-wide text-neutral-500/80">
 					Bio-data
 				</h2>
-				<div className="flex gap-1 items-center">
+				<div className="flex gap-2 items-center text-neutral-600">
 					<LuGraduationCap size={16} />
 					<p>B.M.S. College of Engineering</p>
 				</div>
-				<div className="flex gap-1 items-center">
+				<div className="flex gap-2 items-center text-neutral-600">
 					<LuMapPin size={16} />
 					<p>Bengaluru, KA</p>
 				</div>
-				<div className="flex gap-1 items-center hover:text-gray-600">
+				<div className="flex gap-2 items-center text-neutral-600">
 					<LuMail size={16} />
 					<p className="underline decoration-dashed">
 						<a href="mailto:kavyadeepdev@proton.me">kavyadeepdev@proton.me</a>
@@ -60,13 +60,13 @@ export default function Sidebar() {
 			<Navbar />
 			{/* Links */}
 			<div className="flex flex-col gap-2 text-sm mb-12 pl-2">
-				<h2 className="text-xs uppercase font-semibold tracking-wide text-gray-500">
+				<h2 className="text-xs uppercase font-semibold tracking-wide text-neutral-500/80">
 					Links
 				</h2>
 				<a
 					href="https://github.com/kavyadeepdev"
 					target="_blank"
-					className="flex items-center gap-1 hover:text-gray-600"
+					className="flex items-center gap-2 hover:text-gray-600"
 				>
 					<LuGithub size={16} />
 					GitHub ↗
@@ -74,7 +74,7 @@ export default function Sidebar() {
 				<a
 					href="https://linkedin.com/in/kavyadeepdev/"
 					target="_blank"
-					className="flex items-center gap-1 hover:text-gray-600"
+					className="flex items-center gap-2 hover:text-gray-600"
 				>
 					<LuLinkedin size={16} />
 					LinkedIn ↗
@@ -82,7 +82,7 @@ export default function Sidebar() {
 				<a
 					href="https://x.com/kavyadeepdev"
 					target="_blank"
-					className="flex items-center gap-1 hover:text-gray-600"
+					className="flex items-center gap-2 hover:text-gray-600"
 				>
 					<LuTwitter size={16} />
 					Twitter ↗

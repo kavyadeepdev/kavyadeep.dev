@@ -24,7 +24,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${inter.className} antialiased flex w-screen h-screen pl-[17.7rem] py-2 bg-neutral-100 text-gray-500`}
+				className={`${inter.className} antialiased flex w-screen h-screen pl-[17rem] bg-neutral-100 text-gray-500`}
 			>
 				<Sidebar />
 				<PageContainer>{children}</PageContainer>

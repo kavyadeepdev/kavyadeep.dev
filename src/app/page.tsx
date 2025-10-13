@@ -38,7 +38,7 @@ const projects = [
 
 export default function HomePage() {
 	return (
-		<section className="h-full w-[44rem] pt-[8rem]">
+		<section className="h-full w-[40rem] pt-[8rem]">
 			{/* <h3>Home Page</h3> */}
 			<div id="hero" className="flex flex-col gap-8 w-full mb-24">
 				<Image
