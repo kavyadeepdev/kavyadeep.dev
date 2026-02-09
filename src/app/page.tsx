@@ -41,13 +41,6 @@ export default function HomePage() {
 		<section className="h-full w-[40rem] pt-[8rem]">
 			{/* <h3>Home Page</h3> */}
 			<div id="hero" className="flex flex-col gap-8 w-full mb-24">
-				<Image
-					src={"/hero-pic.jpg"}
-					alt="hero image"
-					width={200}
-					height={200}
-					className="rounded-xl"
-				/>
 				<h2 className={`${calSans.className} text-gray-700 text-4xl`}>
 					{/* <div className="mb-4">👋</div> */}
 					{`Hi there! I'm Kavyadeep 👋`}
