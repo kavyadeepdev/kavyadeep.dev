@@ -6,25 +6,7 @@ const calSans = Cal_Sans({
 	subsets: ["latin"],
 });
 
-const projects = [
-	{
-		title: "Algorithm Visualizer",
-		description: "A sorting visualizer built with C++ and SDL2.",
-		thumbnail: "/thumbnails/algorithm-visualizer.png",
-		tags: ["C++", "SDL2"],
-		// liveUrl: "#",
-		githubUrl: "https://github.com/kavyadeepdev/algorithm-visualizer",
-	},
-	{
-		title: "Cosmic Tropers",
-		description:
-			"A Space Invaders clone built using Java and JavaFX as a school project.",
-		thumbnail: "/thumbnails/cosmic-troopers.png",
-		tags: ["Java", "JavaFX"],
-		// liveUrl: "#",
-		githubUrl: "https://github.com/kavyadeepdev/cosmic-troopers",
-	},
-];
+import { projects } from "@/data/projects";
 
 export default function ProjectPage() {
 	return (

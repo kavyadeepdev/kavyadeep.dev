@@ -16,20 +16,22 @@ export default function ProjectCard({
 }: Readonly<{
 	title: string;
 	description: string;
-	thumbnail: string;
+	thumbnail?: string;
 	tags: string[];
 	liveUrl?: string;
 	githubUrl?: string;
 }>) {
 	return (
 		<div className="rounded-xl w-full p-4 flex flex-col sm:flex-row gap-4 border border-gray-200 hover:shadow hover:border-gray-300 transition-all hover:cursor-pointer mb-4">
-			<Image
-				src={thumbnail}
-				width={250}
-				height={150}
-				className="rounded-xl shadow object-cover w-full sm:w-[250px] h-44 sm:h-[150px] flex-shrink-0"
-				alt={`${title} project image`}
-			/>
+			{thumbnail && (
+				<Image
+					src={thumbnail}
+					width={250}
+					height={150}
+					className="rounded-xl shadow object-cover w-full sm:w-[250px] h-44 sm:h-[150px] flex-shrink-0"
+					alt={`${title} project image`}
+				/>
+			)}
 			<div className="flex flex-col justify-between flex-1">
 				<div>
 					<h2
