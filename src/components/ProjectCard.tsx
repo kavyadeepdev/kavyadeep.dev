@@ -22,12 +22,12 @@ export default function ProjectCard({
 	githubUrl?: string;
 }>) {
 	return (
-		<div className="rounded-xl w-full p-4 flex gap-4 border border-gray-200 hover:shadow hover:border-gray-300 transition-all hover:cursor-pointer mb-4">
+		<div className="rounded-xl w-full p-4 flex flex-col sm:flex-row gap-4 border border-gray-200 hover:shadow hover:border-gray-300 transition-all hover:cursor-pointer mb-4">
 			<Image
 				src={thumbnail}
 				width={250}
 				height={150}
-				className="rounded-xl shadow object-cover"
+				className="rounded-xl shadow object-cover w-full sm:w-[250px] h-44 sm:h-[150px] flex-shrink-0"
 				alt={`${title} project image`}
 			/>
 			<div className="flex flex-col justify-between flex-1">
@@ -42,18 +42,18 @@ export default function ProjectCard({
 					</p>
 				</div>
 
-				<div className="mt-4">
+				<div className="mt-4 flex flex-wrap gap-1.5">
 					{tags.map((tag) => (
 						<span
 							key={`${title}-${tag}`}
-							className="text-xs px-1.5 py-0.5 bg-gray-100 rounded-md border border-gray-200 text-gray-600 mr-2"
+							className="text-xs px-1.5 py-0.5 bg-gray-100 rounded-md border border-gray-200 text-gray-600"
 						>
 							{tag}
 						</span>
 					))}
 				</div>
 
-				<div className="flex gap-2 justify-end text-xs mt-3">
+				<div className="flex gap-2 justify-end text-xs mt-3 flex-wrap">
 					{liveUrl && (
 						<a
 							href={liveUrl}

@@ -3,9 +3,7 @@
 import Link from "next/link";
 import {
 	LuHouse,
-	LuMessageSquareText,
 	LuBriefcase,
-	LuBook,
 	LuMail,
 } from "react-icons/lu";
 import { usePathname } from "next/navigation";
@@ -38,7 +36,7 @@ const pages = [
 	},
 ];
 
-export default function Navbar() {
+export default function Navbar({ onNavigate }: { onNavigate?: () => void }) {
 	const pathname = usePathname();
 	return (
 		<nav className="mb-12 text-sm">
@@ -55,6 +53,7 @@ export default function Navbar() {
 						<Link
 							key={page.title}
 							href={page.url}
+							onClick={onNavigate}
 							className={`flex items-center gap-2 p-2 rounded-lg text-neutral-600 ${
 								isActive
 									? "bg-neutral-200/50 hover:bg-neutral-300/40"

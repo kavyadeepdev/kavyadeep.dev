@@ -28,10 +28,10 @@ const projects = [
 
 export default function ProjectPage() {
 	return (
-		<section className="h-full w-[40rem] pt-[8rem]">
+		<section className="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16">
 			{/* <h3>Home Page</h3> */}
-			<div className="flex flex-col gap-8 w-full mb-24">
-				<h2 className={`${calSans.className} text-gray-700 text-4xl`}>
+			<div className="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24">
+				<h2 className={`${calSans.className} text-gray-700 text-3xl sm:text-4xl`}>
 					{/* <div className="mb-4">👋</div> */}
 					{`Projects 🚀`}
 				</h2>

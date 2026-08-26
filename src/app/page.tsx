@@ -6,7 +6,6 @@ import MongoIcon from "@/components/icons/MongoIcon";
 import TailwindIcon from "@/components/icons/TailwindIcon";
 import PostgresqlIcon from "@/components/icons/PostgresqlIcon";
 import ExpoIcon from "@/components/icons/ExpoIcon";
-import Image from "next/image";
 import Link from "next/link";
 import ProjectCard from "@/components/ProjectCard";
 import { LuPhoneCall, LuGithub } from "react-icons/lu";
@@ -38,10 +37,10 @@ const projects = [
 
 export default function HomePage() {
 	return (
-		<section className="h-full w-[40rem] pt-[8rem]">
+		<section className="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16">
 			{/* <h3>Home Page</h3> */}
-			<div id="hero" className="flex flex-col gap-8 w-full mb-24">
-				<h2 className={`${calSans.className} text-gray-700 text-4xl`}>
+			<div id="hero" className="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24">
+				<h2 className={`${calSans.className} text-gray-700 text-3xl sm:text-4xl`}>
 					{/* <div className="mb-4">👋</div> */}
 					{`Hi there! I'm Kavyadeep 👋`}
 				</h2>
@@ -91,10 +90,11 @@ export default function HomePage() {
 						<PostgresqlIcon />
 					</div>
 				</div>
-				<div className="mt-4 flex gap-4">
+				<div className="mt-4 flex flex-wrap gap-3 sm:gap-4">
 					<a
 						href="https://github.com/kavyadeepdev"
 						target="_blank"
+						rel="noopener noreferrer"
 						className="inline-flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition"
 					>
 						<LuGithub />
