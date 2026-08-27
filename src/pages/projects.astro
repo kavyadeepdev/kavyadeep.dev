@@ -2,20 +2,633 @@
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import { projects } from "@/data/projects";
+import { Search, X, RotateCcw, SlidersHorizontal, Layers, ChevronDown, ChevronUp } from "@lucide/astro";
+
+// Calculate all unique tags with count, sorted by frequency then alphabetically
+const tagCounts = projects.reduce<Record<string, number>>((acc, project) => {
+  project.tags.forEach((tag) => {
+    acc[tag] = (acc[tag] || 0) + 1;
+  });
+  return acc;
+}, {});
+
+const sortedTags = Object.entries(tagCounts)
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  .map(([tag, count]) => ({ tag, count }));
+
+const totalProjects = projects.length;
+const INITIAL_VISIBLE_COUNT = 6;
+const topTags = sortedTags.slice(0, INITIAL_VISIBLE_COUNT);
+const extraTags = sortedTags.slice(INITIAL_VISIBLE_COUNT);
+const extraTagsCount = extraTags.length;
 ---
 
 <Layout
   title="Projects | Kavyadeep Dev"
-  description="Projects by Kavyadeep Dev"
+  description="Explore software projects, systems, and open-source contributions built by Kavyadeep Dev."
 >
   <section class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16 animate-fade-in">
     <div class="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24">
-      <h2 class="font-cal text-gray-700 dark:text-white text-3xl sm:text-4xl">
-        Projects 🚀
-      </h2>
-      <div class="flex flex-col">
+      <!-- Header -->
+      <div class="flex flex-col gap-2">
+        <h2 class="font-cal text-gray-700 dark:text-white text-3xl sm:text-4xl">
+          Projects 🚀
+        </h2>
+        <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+          A collection of web apps, systems, and experiments I've designed and built.
+        </p>
+      </div>
+
+      <!-- Search & Filters Container -->
+      <div class="flex flex-col gap-4">
+        <!-- Search Input Bar -->
+        <div class="relative w-full">
+          <div
+            class="group flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-900/60 backdrop-blur-xl shadow-xs focus-within:border-blue-500/70 focus-within:ring-3 focus-within:ring-blue-500/15 focus-within:bg-white dark:focus-within:bg-neutral-900 transition-all duration-200"
+          >
+            <Search class="w-4 h-4 text-neutral-400 dark:text-neutral-500 shrink-0 group-focus-within:text-blue-500 transition-colors duration-150" />
+            <input
+              id="project-search"
+              type="text"
+              placeholder="Search projects by name, tech, or keywords..."
+              class="w-full bg-transparent text-sm text-gray-800 dark:text-neutral-200 placeholder-neutral-400 dark:placeholder-neutral-500 outline-none"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button
+                id="clear-search-btn"
+                type="button"
+                aria-label="Clear search query"
+                class="hidden p-1 rounded-md text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-150 cursor-pointer"
+              >
+                <X class="w-3.5 h-3.5" />
+              </button>
+              <kbd
+                id="search-kbd-hint"
+                class="hidden sm:inline-flex items-center justify-center px-1.5 py-0.5 text-[11px] font-mono text-neutral-400 dark:text-neutral-500 bg-neutral-100/90 dark:bg-neutral-800/80 border border-neutral-200/70 dark:border-neutral-700/60 rounded"
+              >
+                /
+              </kbd>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Filters -->
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 px-0.5">
+            <span class="flex items-center gap-1.5 font-medium">
+              <SlidersHorizontal class="w-3.5 h-3.5" />
+              Filter by technology <span class="text-[11px] opacity-75 font-normal">(select multiple)</span>
+            </span>
+            <button
+              id="reset-all-filters-btn"
+              type="button"
+              class="hidden items-center gap-1 text-blue-500 dark:text-blue-400 hover:underline cursor-pointer transition-colors font-medium"
+            >
+              <RotateCcw class="w-3 h-3" />
+              Reset filters
+            </button>
+          </div>
+
+          <!-- Tag Pills List -->
+          <div id="tech-filter-group" class="flex flex-wrap gap-1.5 items-center" role="group" aria-label="Technology filters">
+            <!-- All Pill -->
+            <button
+              type="button"
+              data-filter-pill="all"
+              class="tech-pill active px-3 py-1 text-xs rounded-lg font-medium transition-all duration-200 cursor-pointer border bg-blue-600 border-blue-500 text-white shadow-xs shadow-blue-500/20"
+            >
+              All <span class="ml-1 opacity-80 text-[11px]">({totalProjects})</span>
+            </button>
+
+            <!-- Top Most-Used Tags (Always in primary visible group) -->
+            {
+              topTags.map(({ tag, count }) => (
+                <button
+                  type="button"
+                  data-filter-pill={tag}
+                  class="tech-pill px-3 py-1 text-xs rounded-lg font-medium transition-all duration-200 cursor-pointer border bg-white/70 dark:bg-neutral-900/60 border-neutral-200/80 dark:border-neutral-800/80 text-neutral-600 dark:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-700 hover:bg-white dark:hover:bg-neutral-800/70 hover:text-neutral-900 dark:hover:text-white"
+                >
+                  {tag}
+                  <span class="ml-1 text-[11px] opacity-70">({count})</span>
+                </button>
+              ))
+            }
+
+            <!-- Extra Tags (Hidden initially, revealed on expand) -->
+            <div id="extra-tags-container" class="hidden contents">
+              {
+                extraTags.map(({ tag, count }) => (
+                  <button
+                    type="button"
+                    data-filter-pill={tag}
+                    class="tech-pill px-3 py-1 text-xs rounded-lg font-medium transition-all duration-200 cursor-pointer border bg-white/70 dark:bg-neutral-900/60 border-neutral-200/80 dark:border-neutral-800/80 text-neutral-600 dark:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-700 hover:bg-white dark:hover:bg-neutral-800/70 hover:text-neutral-900 dark:hover:text-white"
+                  >
+                    {tag}
+                    <span class="ml-1 text-[11px] opacity-70">({count})</span>
+                  </button>
+                ))
+              }
+            </div>
+
+            <!-- More/Less Toggle Button -->
+            {extraTagsCount > 0 && (
+              <button
+                id="toggle-more-tags-btn"
+                type="button"
+                aria-expanded="false"
+                class="inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-lg font-medium transition-all duration-200 cursor-pointer border border-dashed border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-950/30"
+              >
+                <span id="toggle-more-tags-text">+{extraTagsCount} more</span>
+                <ChevronDown id="toggle-chevron-down" class="w-3 h-3 transition-transform" />
+                <ChevronUp id="toggle-chevron-up" class="w-3 h-3 hidden transition-transform" />
+              </button>
+            )}
+          </div>
+        </div>
+
+        <!-- Filter Status Bar -->
+        <div id="filter-status-bar" class="flex flex-wrap items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400 px-0.5 pt-1.5 border-t border-neutral-200/50 dark:border-neutral-800/50">
+          <span id="results-count-text">Showing {totalProjects} of {totalProjects} projects</span>
+          <div id="active-tags-container" class="hidden flex-wrap items-center gap-1.5">
+            <span class="text-[11px]">Filtered by:</span>
+            <div id="active-tags-list" class="flex flex-wrap gap-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Cards List -->
+      <div id="projects-list" class="flex flex-col">
         {projects.map((project) => <ProjectCard {...project} />)}
+      </div>
+
+      <!-- Empty State -->
+      <div
+        id="no-results-state"
+        class="hidden flex-col items-center justify-center text-center p-8 sm:p-12 rounded-2xl border border-dashed border-neutral-300 dark:border-neutral-800 bg-white/30 dark:bg-neutral-900/30 backdrop-blur-sm"
+      >
+        <div class="w-12 h-12 rounded-2xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-400 dark:text-neutral-500 mb-3 shadow-2xs">
+          <Layers class="w-6 h-6" />
+        </div>
+        <h3 class="font-cal text-gray-800 dark:text-neutral-200 text-lg font-medium">
+          No projects found
+        </h3>
+        <p id="no-results-desc" class="text-sm text-neutral-500 dark:text-neutral-400 mt-1 max-w-sm">
+          No projects matched your active search or technology filter.
+        </p>
+        <button
+          id="clear-all-btn"
+          type="button"
+          class="mt-4 px-4 py-2 rounded-xl text-xs font-medium bg-blue-600 hover:bg-blue-500 text-white shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all duration-150 cursor-pointer flex items-center gap-1.5"
+        >
+          <RotateCcw class="w-3.5 h-3.5" />
+          Clear all filters
+        </button>
       </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  function setupProjectFiltering() {
+    const searchInput = document.getElementById("project-search") as HTMLInputElement | null;
+    const clearSearchBtn = document.getElementById("clear-search-btn");
+    const kbdHint = document.getElementById("search-kbd-hint");
+    const pillButtons = document.querySelectorAll<HTMLButtonElement>("[data-filter-pill]");
+    const projectCards = document.querySelectorAll<HTMLElement>("[data-project-card]");
+    const resultsCountText = document.getElementById("results-count-text");
+    const activeTagsContainer = document.getElementById("active-tags-container");
+    const activeTagsList = document.getElementById("active-tags-list");
+    const resetAllBtn = document.getElementById("reset-all-filters-btn");
+    const noResultsState = document.getElementById("no-results-state");
+    const noResultsDesc = document.getElementById("no-results-desc");
+    const clearAllBtn = document.getElementById("clear-all-btn");
+    const toggleMoreTagsBtn = document.getElementById("toggle-more-tags-btn");
+    const extraTagsContainer = document.getElementById("extra-tags-container");
+    const toggleMoreTagsText = document.getElementById("toggle-more-tags-text");
+    const toggleChevronDown = document.getElementById("toggle-chevron-down");
+    const toggleChevronUp = document.getElementById("toggle-chevron-up");
+
+    if (!projectCards.length) return;
+
+    // Set of selected technology tag names (case-insensitive storage with original casing map)
+    const selectedTechs = new Set<string>();
+    let searchQuery: string = "";
+    let isTagsExpanded = false;
+
+    // Map from lowercase tag name to canonical tag name from pills
+    const canonicalTagMap = new Map<string, string>();
+    pillButtons.forEach((btn) => {
+      const val = btn.getAttribute("data-filter-pill");
+      if (val && val !== "all") {
+        canonicalTagMap.set(val.toLowerCase(), val);
+      }
+    });
+
+    // Expand/Collapse extra tags toggle
+    function setTagsExpanded(expanded: boolean) {
+      isTagsExpanded = expanded;
+      if (toggleMoreTagsBtn && extraTagsContainer) {
+        toggleMoreTagsBtn.setAttribute("aria-expanded", String(expanded));
+        if (expanded) {
+          extraTagsContainer.classList.remove("hidden");
+          if (toggleMoreTagsText) toggleMoreTagsText.textContent = "Show less";
+          toggleChevronDown?.classList.add("hidden");
+          toggleChevronUp?.classList.remove("hidden");
+        } else {
+          extraTagsContainer.classList.add("hidden");
+          const extraCount = extraTagsContainer.children.length;
+          if (toggleMoreTagsText) toggleMoreTagsText.textContent = `+${extraCount} more`;
+          toggleChevronDown?.classList.remove("hidden");
+          toggleChevronUp?.classList.add("hidden");
+        }
+      }
+    }
+
+    if (toggleMoreTagsBtn) {
+      toggleMoreTagsBtn.addEventListener("click", () => {
+        setTagsExpanded(!isTagsExpanded);
+      });
+    }
+
+    // Read initial URL params if present
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialTech = urlParams.get("tech");
+      const initialQuery = urlParams.get("q") || urlParams.get("search");
+
+      if (initialTech) {
+        // Support comma-separated tags or multiple tags
+        const tags = initialTech.split(",").map((t) => decodeURIComponent(t).trim()).filter(Boolean);
+        let hasExtraSelected = false;
+        tags.forEach((tag) => {
+          const lower = tag.toLowerCase();
+          if (canonicalTagMap.has(lower)) {
+            const canonical = canonicalTagMap.get(lower)!;
+            selectedTechs.add(canonical);
+
+            // Check if this tag is inside the extra tags container
+            if (extraTagsContainer) {
+              const insideExtra = extraTagsContainer.querySelector(`[data-filter-pill="${canonical}"]`);
+              if (insideExtra) hasExtraSelected = true;
+            }
+          } else {
+            // Check if any tag contains this text (e.g. "mongo" matching "MongoDB" or falling back to search query)
+            let matched = false;
+            for (const [canonLower, canonVal] of canonicalTagMap.entries()) {
+              if (canonLower.includes(lower) || lower.includes(canonLower)) {
+                selectedTechs.add(canonVal);
+                matched = true;
+                if (extraTagsContainer?.querySelector(`[data-filter-pill="${canonVal}"]`)) {
+                  hasExtraSelected = true;
+                }
+                break;
+              }
+            }
+            if (!matched && !searchQuery) {
+              searchQuery = tag;
+              if (searchInput) searchInput.value = tag;
+            }
+          }
+        });
+
+        if (hasExtraSelected) {
+          setTagsExpanded(true);
+        }
+      }
+
+      if (initialQuery && searchInput) {
+        searchQuery = decodeURIComponent(initialQuery);
+        searchInput.value = searchQuery;
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
+
+    function syncUrlParams() {
+      try {
+        const url = new URL(window.location.href);
+        if (selectedTechs.size > 0) {
+          url.searchParams.set("tech", Array.from(selectedTechs).join(","));
+        } else {
+          url.searchParams.delete("tech");
+        }
+
+        if (searchQuery.trim()) {
+          url.searchParams.set("q", searchQuery.trim());
+        } else {
+          url.searchParams.delete("q");
+          url.searchParams.delete("search");
+        }
+
+        window.history.replaceState({}, "", url.toString());
+      } catch {
+        // Fallback gracefully
+      }
+    }
+
+    function updatePillsUI() {
+      const isAllActive = selectedTechs.size === 0;
+
+      pillButtons.forEach((btn) => {
+        const pillValue = btn.getAttribute("data-filter-pill") || "all";
+
+        if (pillValue === "all") {
+          if (isAllActive) {
+            btn.classList.add(
+              "bg-blue-600",
+              "border-blue-500",
+              "text-white",
+              "shadow-xs",
+              "shadow-blue-500/20"
+            );
+            btn.classList.remove(
+              "bg-white/70",
+              "dark:bg-neutral-900/60",
+              "border-neutral-200/80",
+              "dark:border-neutral-800/80",
+              "text-neutral-600",
+              "dark:text-neutral-300"
+            );
+          } else {
+            btn.classList.remove(
+              "bg-blue-600",
+              "border-blue-500",
+              "text-white",
+              "shadow-xs",
+              "shadow-blue-500/20"
+            );
+            btn.classList.add(
+              "bg-white/70",
+              "dark:bg-neutral-900/60",
+              "border-neutral-200/80",
+              "dark:border-neutral-800/80",
+              "text-neutral-600",
+              "dark:text-neutral-300"
+            );
+          }
+        } else {
+          const isSelected = selectedTechs.has(pillValue);
+          if (isSelected) {
+            btn.classList.add(
+              "bg-blue-600",
+              "border-blue-500",
+              "text-white",
+              "shadow-xs",
+              "shadow-blue-500/20"
+            );
+            btn.classList.remove(
+              "bg-white/70",
+              "dark:bg-neutral-900/60",
+              "border-neutral-200/80",
+              "dark:border-neutral-800/80",
+              "text-neutral-600",
+              "dark:text-neutral-300"
+            );
+          } else {
+            btn.classList.remove(
+              "bg-blue-600",
+              "border-blue-500",
+              "text-white",
+              "shadow-xs",
+              "shadow-blue-500/20"
+            );
+            btn.classList.add(
+              "bg-white/70",
+              "dark:bg-neutral-900/60",
+              "border-neutral-200/80",
+              "dark:border-neutral-800/80",
+              "text-neutral-600",
+              "dark:text-neutral-300"
+            );
+          }
+        }
+      });
+    }
+
+    function renderActiveTagsList() {
+      if (!activeTagsContainer || !activeTagsList) return;
+
+      if (selectedTechs.size === 0) {
+        activeTagsContainer.classList.add("hidden");
+        activeTagsContainer.classList.remove("flex");
+        activeTagsList.innerHTML = "";
+        return;
+      }
+
+      activeTagsContainer.classList.remove("hidden");
+      activeTagsContainer.classList.add("flex");
+      activeTagsList.innerHTML = "";
+
+      selectedTechs.forEach((tag) => {
+        const tagBadge = document.createElement("button");
+        tagBadge.type = "button";
+        tagBadge.className =
+          "inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800/60 hover:bg-blue-100 dark:hover:bg-blue-900/80 transition-colors cursor-pointer";
+        tagBadge.innerHTML = `<span>${tag}</span><span aria-hidden="true" class="text-xs opacity-70">✕</span>`;
+        tagBadge.title = `Remove ${tag} filter`;
+        tagBadge.addEventListener("click", () => {
+          selectedTechs.delete(tag);
+          applyFilter();
+        });
+        activeTagsList.appendChild(tagBadge);
+      });
+    }
+
+    function applyFilter() {
+      const q = searchQuery.toLowerCase().trim();
+      const selectedArr = Array.from(selectedTechs).map((t) => t.toLowerCase());
+      const totalCount = projectCards.length;
+      let visibleCount = 0;
+
+      projectCards.forEach((card) => {
+        const title = card.getAttribute("data-title") || "";
+        const desc = card.getAttribute("data-description") || "";
+        const cardTags = (card.getAttribute("data-tags") || "")
+          .split(",")
+          .map((t) => t.trim().toLowerCase());
+
+        // Multi-select matching: must contain ALL selected technologies
+        const matchesTech =
+          selectedArr.length === 0 ||
+          selectedArr.every((sel) => cardTags.includes(sel));
+
+        const matchesSearch =
+          !q ||
+          title.includes(q) ||
+          desc.includes(q) ||
+          cardTags.some((t) => t.includes(q));
+
+        if (matchesTech && matchesSearch) {
+          card.classList.remove("hidden");
+          visibleCount++;
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+
+      // Update status counts & UI
+      if (resultsCountText) {
+        resultsCountText.textContent = `Showing ${visibleCount} of ${totalCount} projects`;
+      }
+
+      const hasActiveFilters = selectedTechs.size > 0 || q.length > 0;
+
+      if (resetAllBtn) {
+        if (hasActiveFilters) {
+          resetAllBtn.classList.remove("hidden");
+          resetAllBtn.classList.add("inline-flex");
+        } else {
+          resetAllBtn.classList.add("hidden");
+          resetAllBtn.classList.remove("inline-flex");
+        }
+      }
+
+      renderActiveTagsList();
+
+      // Empty state
+      if (noResultsState) {
+        if (visibleCount === 0) {
+          noResultsState.classList.remove("hidden");
+          noResultsState.classList.add("flex");
+          if (noResultsDesc) {
+            const techNames = Array.from(selectedTechs).join(" + ");
+            if (q && selectedTechs.size > 0) {
+              noResultsDesc.textContent = `No projects matching "${searchQuery}" found with [${techNames}].`;
+            } else if (q) {
+              noResultsDesc.textContent = `No projects matching "${searchQuery}" were found.`;
+            } else {
+              noResultsDesc.textContent = `No projects found built with [${techNames}].`;
+            }
+          }
+        } else {
+          noResultsState.classList.add("hidden");
+          noResultsState.classList.remove("flex");
+        }
+      }
+
+      // Toggle clear search button & kbd hint
+      if (clearSearchBtn && kbdHint) {
+        if (q.length > 0) {
+          clearSearchBtn.classList.remove("hidden");
+          kbdHint.classList.add("hidden");
+        } else {
+          clearSearchBtn.classList.add("hidden");
+          kbdHint.classList.remove("hidden");
+        }
+      }
+
+      updatePillsUI();
+      syncUrlParams();
+    }
+
+    // Event: Search Input
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        searchQuery = (e.target as HTMLInputElement).value;
+        applyFilter();
+      });
+
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          if (searchInput.value) {
+            searchInput.value = "";
+            searchQuery = "";
+            applyFilter();
+          } else {
+            searchInput.blur();
+          }
+        }
+      });
+    }
+
+    // Event: Clear Search Button
+    if (clearSearchBtn && searchInput) {
+      clearSearchBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        searchQuery = "";
+        applyFilter();
+        searchInput.focus();
+      });
+    }
+
+    // Event: Pill Clicks (Multi-Select Support)
+    pillButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const pillValue = btn.getAttribute("data-filter-pill") || "all";
+        if (pillValue === "all") {
+          selectedTechs.clear();
+        } else {
+          if (selectedTechs.has(pillValue)) {
+            selectedTechs.delete(pillValue);
+          } else {
+            selectedTechs.add(pillValue);
+          }
+        }
+        applyFilter();
+      });
+    });
+
+    // Event: Click tag buttons on individual project cards
+    document.addEventListener("click", (e) => {
+      const target = (e.target as HTMLElement).closest<HTMLElement>("[data-tag-btn]");
+      if (target) {
+        e.preventDefault();
+        const tag = target.getAttribute("data-tag-btn");
+        if (tag) {
+          const canonical = canonicalTagMap.get(tag.toLowerCase()) || tag;
+          if (selectedTechs.has(canonical)) {
+            selectedTechs.delete(canonical);
+          } else {
+            selectedTechs.add(canonical);
+          }
+
+          // If the clicked tag is in extra tags, expand to make it visible
+          if (extraTagsContainer) {
+            const insideExtra = extraTagsContainer.querySelector(`[data-filter-pill="${canonical}"]`);
+            if (insideExtra && !isTagsExpanded) {
+              setTagsExpanded(true);
+            }
+          }
+
+          applyFilter();
+        }
+      }
+    });
+
+    // Event: Reset All & Clear All
+    function resetAll() {
+      selectedTechs.clear();
+      searchQuery = "";
+      if (searchInput) {
+        searchInput.value = "";
+      }
+      applyFilter();
+    }
+
+    if (resetAllBtn) resetAllBtn.addEventListener("click", resetAll);
+    if (clearAllBtn) clearAllBtn.addEventListener("click", resetAll);
+
+    // Global keyboard shortcut '/' to focus search
+    document.addEventListener("keydown", (e) => {
+      if (
+        e.key === "/" &&
+        document.activeElement !== searchInput &&
+        !["input", "textarea"].includes(
+          document.activeElement?.tagName.toLowerCase() || ""
+        )
+      ) {
+        e.preventDefault();
+        searchInput?.focus();
+      }
+    });
+
+    // Initial run
+    applyFilter();
+  }
+
+  // Run on initial load and view transitions
+  setupProjectFiltering();
+  document.addEventListener("astro:page-load", setupProjectFiltering);
+</script>
