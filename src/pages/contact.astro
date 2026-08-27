@@ -8,7 +8,7 @@ import { Send } from "@lucide/astro";
   description="Get in touch with Kavyadeep Dev"
 >
   <section
-    class="flex flex-col justify-start md:justify-center min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16 gap-6 md:gap-8"
+    class="flex flex-col justify-start md:justify-center min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16 gap-6 md:gap-8 animate-fade-in"
   >
     <h2 class="font-cal text-gray-700 dark:text-white text-3xl sm:text-4xl">
       Message ✉️
@@ -18,23 +18,23 @@ import { Send } from "@lucide/astro";
         <input
           type="text"
           placeholder="Name"
-          class="bg-gray-100 dark:bg-neutral-800 border border-transparent dark:border-neutral-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-neutral-500 px-4 py-2 rounded-xl flex-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-neutral-600 transition-colors"
+          class="bg-neutral-100/70 dark:bg-neutral-900/60 backdrop-blur-xs border border-neutral-200/70 dark:border-neutral-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-neutral-500 px-4 py-2.5 rounded-xl flex-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-neutral-600 transition-all"
         />
         <input
           type="email"
           placeholder="Email"
-          class="bg-gray-100 dark:bg-neutral-800 border border-transparent dark:border-neutral-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-neutral-500 px-4 py-2 rounded-xl flex-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-neutral-600 transition-colors"
+          class="bg-neutral-100/70 dark:bg-neutral-900/60 backdrop-blur-xs border border-neutral-200/70 dark:border-neutral-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-neutral-500 px-4 py-2.5 rounded-xl flex-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-neutral-600 transition-all"
         />
       </div>
       <textarea
         placeholder="Message"
-        class="bg-gray-100 dark:bg-neutral-800 border border-transparent dark:border-neutral-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-neutral-500 px-4 py-2 rounded-xl h-48 md:h-[20rem] focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-neutral-600 text-sm resize-none transition-colors"
+        class="bg-neutral-100/70 dark:bg-neutral-900/60 backdrop-blur-xs border border-neutral-200/70 dark:border-neutral-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-neutral-500 px-4 py-3 rounded-xl h-48 md:h-[20rem] focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-neutral-600 text-sm resize-none transition-all"
       ></textarea>
       <button
         type="submit"
-        class="bg-blue-500 text-white py-2 rounded-xl font-bold flex justify-center items-center hover:cursor-pointer hover:bg-blue-600 dark:hover:bg-blue-400 transition shadow-xs"
+        class="bg-blue-600/85 dark:bg-blue-600/80 hover:bg-blue-600 dark:hover:bg-blue-500 text-white py-2.5 rounded-xl font-bold flex justify-center items-center hover:cursor-pointer backdrop-blur-md border border-blue-400/40 dark:border-blue-400/30 shadow-xs hover:-translate-y-0.5 hover:shadow-md hover:border-blue-300/60 active:scale-95 active:translate-y-0 transition-all duration-200 ease-out"
       >
-        <Send size={18} class="mt-0.5 mr-1" />
+        <Send size={18} class="mt-0.5 mr-1.5" />
         Send
       </button>
     </form>

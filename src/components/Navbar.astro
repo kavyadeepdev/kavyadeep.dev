@@ -44,10 +44,10 @@ const pages = [
           <a
             href={page.url}
             class:list={[
-              "flex items-center gap-2 p-2 rounded-lg transition-colors",
+              "flex items-center gap-2 p-2 rounded-lg transition-all duration-200",
               isActive
-                ? "bg-neutral-200/50 dark:bg-neutral-800 hover:bg-neutral-300/40 dark:hover:bg-neutral-700/50 text-neutral-900 dark:text-white font-medium"
-                : "text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/60 hover:text-neutral-900 dark:hover:text-white",
+                ? "bg-white/70 dark:bg-white/10 backdrop-blur-md border border-white/80 dark:border-white/10 text-neutral-900 dark:text-white font-medium shadow-2xs"
+                : "border border-transparent text-neutral-600 dark:text-neutral-300 hover:bg-white/40 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white",
             ]}
           >
             <IconComponent size={16} />

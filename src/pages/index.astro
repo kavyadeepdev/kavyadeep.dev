@@ -17,7 +17,7 @@ const featuredProjects = projects.filter((p) => p.featured);
 
 <Layout title="Kavyadeep Dev" description="Portfolio website of Kavyadeep Dev">
   <section class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16">
-    <div id="hero" class="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24">
+    <div id="hero" class="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24 animate-fade-in">
       <h2 class="font-cal text-gray-700 dark:text-white text-3xl sm:text-4xl">
         Hi there! I'm Kavyadeep 👋
       </h2>
@@ -25,7 +25,7 @@ const featuredProjects = projects.filter((p) => p.featured);
         <p>
           I'm a{" "}
           <span
-            class="px-1 py-0.5 bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-neutral-200 rounded-md border border-gray-200 dark:border-neutral-700"
+            class="px-2 py-0.5 bg-neutral-100/80 dark:bg-neutral-800/60 backdrop-blur-xs text-gray-800 dark:text-neutral-200 rounded-md border border-neutral-200/80 dark:border-neutral-700/60 font-medium"
           >
             full-stack developer
           </span>{" "}
@@ -38,32 +38,32 @@ const featuredProjects = projects.filter((p) => p.featured);
         <p>
           Excited to learn and grow through new challenges — Currently{" "}
           <span
-            class="px-1 py-0.5 bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-neutral-200 rounded-md border border-gray-200 dark:border-neutral-700"
+            class="px-2 py-0.5 bg-neutral-100/80 dark:bg-neutral-800/60 backdrop-blur-xs text-gray-800 dark:text-neutral-200 rounded-md border border-neutral-200/80 dark:border-neutral-700/60 font-medium"
           >
             open to internships.
           </span>
         </p>
       </div>
       <div class="mt-4 flex flex-wrap gap-4 items-center">
-        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
+        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-cyan-500 dark:hover:text-cyan-400 hover:scale-115 hover:-translate-y-0.5 transition-all duration-200">
           <ReactIcon />
         </div>
-        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-gray-800 dark:hover:text-white transition-colors">
+        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-gray-800 dark:hover:text-white hover:scale-115 hover:-translate-y-0.5 transition-all duration-200">
           <NextIcon />
         </div>
-        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-gray-800 dark:hover:text-white transition-colors">
+        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-gray-800 dark:hover:text-white hover:scale-115 hover:-translate-y-0.5 transition-all duration-200">
           <ExpoIcon />
         </div>
-        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
+        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-cyan-500 dark:hover:text-cyan-400 hover:scale-115 hover:-translate-y-0.5 transition-all duration-200">
           <TailwindIcon />
         </div>
-        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-green-500 dark:hover:text-green-400 transition-colors">
+        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-green-500 dark:hover:text-green-400 hover:scale-115 hover:-translate-y-0.5 transition-all duration-200">
           <NodeIcon />
         </div>
-        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-green-500 dark:hover:text-green-400 transition-colors">
+        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-green-500 dark:hover:text-green-400 hover:scale-115 hover:-translate-y-0.5 transition-all duration-200">
           <MongoIcon />
         </div>
-        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+        <div class="w-8 text-gray-400 dark:text-neutral-500 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-115 hover:-translate-y-0.5 transition-all duration-200">
           <PostgresqlIcon />
         </div>
       </div>
@@ -72,21 +72,21 @@ const featuredProjects = projects.filter((p) => p.featured);
           href="https://github.com/kavyadeepdev"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 dark:hover:bg-blue-400 transition shadow-xs"
+          class="inline-flex items-center gap-2 bg-blue-600/85 dark:bg-blue-600/80 hover:bg-blue-600 dark:hover:bg-blue-500 text-white text-sm px-4.5 py-2.5 rounded-xl backdrop-blur-md border border-blue-400/40 dark:border-blue-400/30 shadow-xs hover:-translate-y-0.5 hover:shadow-md hover:border-blue-300/60 active:scale-95 active:translate-y-0 transition-all duration-200 ease-out font-medium"
         >
           <GithubIcon size={16} />
           View My Repos
         </a>
         <a
           href="/contact"
-          class="inline-flex items-center gap-2 border-2 border-blue-500 dark:border-blue-400 text-blue-500 dark:text-blue-400 text-sm px-4 py-2 rounded-lg hover:border-blue-600 dark:hover:border-blue-300 hover:text-blue-600 dark:hover:text-blue-300 dark:hover:bg-blue-950/30 transition"
+          class="inline-flex items-center gap-2 border border-blue-500/50 dark:border-blue-400/40 bg-blue-50/50 dark:bg-blue-950/40 backdrop-blur-md text-blue-600 dark:text-blue-400 text-sm px-4.5 py-2.5 rounded-xl hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white hover:-translate-y-0.5 hover:shadow-md hover:border-blue-400 active:scale-95 active:translate-y-0 transition-all duration-200 ease-out font-medium shadow-xs"
         >
           <PhoneCall size={16} />
           Let's Connect
         </a>
       </div>
     </div>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 animate-fade-in delay-150">
       <div class="w-full flex justify-between items-center">
         <h3 class="font-cal text-gray-700 dark:text-white text-xl">
           Featured projects
