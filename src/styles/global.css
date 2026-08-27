@@ -2,9 +2,16 @@
 @import "@fontsource/inter/index.css";
 @import "cal-sans/index.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
 	--background: #ffffff;
 	--foreground: #171717;
+}
+
+.dark {
+	--background: #0a0a0a;
+	--foreground: #ededed;
 }
 
 @theme inline {
@@ -16,11 +23,4 @@
 
 @utility font-cal {
 	font-family: "Cal Sans", sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
 }

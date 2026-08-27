@@ -29,7 +29,9 @@ const pages = [
 ---
 
 <nav class:list={["mb-12 text-sm", className]}>
-  <h2 class="text-xs uppercase font-semibold tracking-wide text-neutral-500/80 pl-2 mb-2">
+  <h2
+    class="text-xs uppercase font-semibold tracking-wide text-neutral-500/80 dark:text-neutral-400/80 pl-2 mb-2"
+  >
     Navigation
   </h2>
 
@@ -42,10 +44,10 @@ const pages = [
           <a
             href={page.url}
             class:list={[
-              "flex items-center gap-2 p-2 rounded-lg text-neutral-600 transition-colors",
+              "flex items-center gap-2 p-2 rounded-lg transition-colors",
               isActive
-                ? "bg-neutral-200/50 hover:bg-neutral-300/40"
-                : "hover:bg-neutral-200/50",
+                ? "bg-neutral-200/50 dark:bg-neutral-800 hover:bg-neutral-300/40 dark:hover:bg-neutral-700/50 text-neutral-900 dark:text-white font-medium"
+                : "text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/60 hover:text-neutral-900 dark:hover:text-white",
             ]}
           >
             <IconComponent size={16} />

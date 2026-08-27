@@ -23,9 +23,24 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <script is:inline>
+      const getThemePreference = () => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      };
+      const isDark = getThemePreference() === "dark";
+      document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+    </script>
   </head>
   <body
-    class="font-sans antialiased flex flex-col md:flex-row w-full h-screen md:pl-[17rem] bg-neutral-100 text-gray-500 overflow-hidden"
+    class="font-sans antialiased flex flex-col md:flex-row w-full h-screen md:pl-[17rem] bg-neutral-100 dark:bg-neutral-950 text-gray-500 dark:text-neutral-400 overflow-hidden"
   >
     <Sidebar />
     <PageContainer>

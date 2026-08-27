@@ -1,0 +1,39 @@
+---
+import { Sun, Moon } from "@lucide/astro";
+
+interface Props {
+  class?: string;
+  size?: number;
+}
+
+const { class: className, size = 18 } = Astro.props;
+---
+
+<button
+  type="button"
+  class:list={[
+    "theme-toggle p-2 rounded-lg text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200/60 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-colors focus:outline-none cursor-pointer flex items-center justify-center",
+    className,
+  ]}
+  aria-label="Toggle theme"
+  title="Toggle theme"
+>
+  <Sun size={size} class="hidden dark:block" />
+  <Moon size={size} class="block dark:hidden" />
+</button>
+
+<script>
+  function setupThemeToggle() {
+    const toggles = document.querySelectorAll(".theme-toggle");
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      });
+    });
+  }
+
+  setupThemeToggle();
+  document.addEventListener("astro:page-load", setupThemeToggle);
+</script>
