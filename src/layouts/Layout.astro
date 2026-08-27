@@ -1,0 +1,35 @@
+---
+import Sidebar from "@/components/Sidebar.astro";
+import PageContainer from "@/components/PageContainer.astro";
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Kavyadeep Dev",
+  description = "Portfolio website of Kavyadeep Dev",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col md:flex-row w-full h-screen md:pl-[17rem] bg-neutral-100 text-gray-500 overflow-hidden"
+  >
+    <Sidebar />
+    <PageContainer>
+      <slot />
+    </PageContainer>
+  </body>
+</html>
