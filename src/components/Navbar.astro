@@ -1,0 +1,58 @@
+---
+import { House, Briefcase, Mail } from "@lucide/astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const pages = [
+  {
+    title: "Home",
+    url: "/",
+    icon: House,
+  },
+  {
+    title: "Projects",
+    url: "/projects",
+    icon: Briefcase,
+  },
+  {
+    title: "Contact",
+    url: "/contact",
+    icon: Mail,
+  },
+];
+---
+
+<nav class:list={["mb-12 text-sm", className]}>
+  <h2 class="text-xs uppercase font-semibold tracking-wide text-neutral-500/80 pl-2 mb-2">
+    Navigation
+  </h2>
+
+  <div class="flex flex-col gap-1">
+    {
+      pages.map((page) => {
+        const isActive = pathname === page.url;
+        const IconComponent = page.icon;
+        return (
+          <a
+            href={page.url}
+            class:list={[
+              "flex items-center gap-2 p-2 rounded-lg text-neutral-600 transition-colors",
+              isActive
+                ? "bg-neutral-200/50 hover:bg-neutral-300/40"
+                : "hover:bg-neutral-200/50",
+            ]}
+          >
+            <IconComponent size={16} />
+            {page.title}
+          </a>
+        );
+      })
+    }
+  </div>
+</nav>

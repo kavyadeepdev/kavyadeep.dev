@@ -1,0 +1,106 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ReactIcon from "@/components/icons/ReactIcon.astro";
+import NextIcon from "@/components/icons/NextIcon.astro";
+import NodeIcon from "@/components/icons/NodeIcon.astro";
+import MongoIcon from "@/components/icons/MongoIcon.astro";
+import TailwindIcon from "@/components/icons/TailwindIcon.astro";
+import PostgresqlIcon from "@/components/icons/PostgresqlIcon.astro";
+import ExpoIcon from "@/components/icons/ExpoIcon.astro";
+import GithubIcon from "@/components/icons/GithubIcon.astro";
+import { PhoneCall } from "@lucide/astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { projects } from "@/data/projects";
+
+const featuredProjects = projects.filter((p) => p.featured);
+---
+
+<Layout title="Kavyadeep Dev" description="Portfolio website of Kavyadeep Dev">
+  <section class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16">
+    <div id="hero" class="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24">
+      <h2 class="font-cal text-gray-700 text-3xl sm:text-4xl">
+        Hi there! I'm Kavyadeep 👋
+      </h2>
+      <div class="flex flex-col gap-3">
+        <p>
+          I'm a{" "}
+          <span
+            class="px-1 py-0.5 bg-gray-100 rounded-md border border-gray-200"
+          >
+            full-stack developer
+          </span>{" "}
+          crafting clean and performant web and mobile apps.
+        </p>
+        <p>
+          I love building intuitive experiences that turn ideas into real-world
+          projects.
+        </p>
+        <p>
+          Excited to learn and grow through new challenges — Currently{" "}
+          <span
+            class="px-1 py-0.5 bg-gray-100 rounded-md border border-gray-200"
+          >
+            open to internships.
+          </span>
+        </p>
+      </div>
+      <div class="mt-4 flex flex-wrap gap-4 items-center">
+        <div class="w-8 hover:text-cyan-500 transition-colors">
+          <ReactIcon />
+        </div>
+        <div class="w-8 hover:text-gray-700 transition-colors">
+          <NextIcon />
+        </div>
+        <div class="w-8 hover:text-gray-700 transition-colors">
+          <ExpoIcon />
+        </div>
+        <div class="w-8 hover:text-cyan-500 transition-colors">
+          <TailwindIcon />
+        </div>
+        <div class="w-8 hover:text-green-500 transition-colors">
+          <NodeIcon />
+        </div>
+        <div class="w-8 hover:text-green-500 transition-colors">
+          <MongoIcon />
+        </div>
+        <div class="w-8 hover:text-blue-500 transition-colors">
+          <PostgresqlIcon />
+        </div>
+      </div>
+      <div class="mt-4 flex flex-wrap gap-3 sm:gap-4">
+        <a
+          href="https://github.com/kavyadeepdev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+        >
+          <GithubIcon size={16} />
+          View My Repos
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-2 border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-lg hover:border-blue-600 hover:text-blue-600 transition"
+        >
+          <PhoneCall size={16} />
+          Let's Connect
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4">
+      <div class="w-full flex justify-between items-center">
+        <h3 class="font-cal text-gray-700 text-xl">
+          Featured projects
+        </h3>
+        <a
+          href="/projects"
+          class="text-sm text-blue-500 underline decoration-dashed hover:text-blue-600"
+        >
+          View All ↗
+        </a>
+      </div>
+      <div class="flex flex-col">
+        {featuredProjects.map((project) => <ProjectCard {...project} />)}
+      </div>
+    </div>
+  </section>
+</Layout>

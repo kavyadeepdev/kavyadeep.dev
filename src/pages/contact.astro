@@ -1,0 +1,42 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Send } from "@lucide/astro";
+---
+
+<Layout
+  title="Contact | Kavyadeep Dev"
+  description="Get in touch with Kavyadeep Dev"
+>
+  <section
+    class="flex flex-col justify-start md:justify-center min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16 gap-6 md:gap-8"
+  >
+    <h2 class="font-cal text-gray-700 text-3xl sm:text-4xl">
+      Message ✉️
+    </h2>
+    <form action="" class="flex flex-col gap-4 w-full">
+      <div class="w-full flex flex-col sm:flex-row gap-4">
+        <input
+          type="text"
+          placeholder="Name"
+          class="bg-gray-100 px-4 py-2 rounded-xl flex-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          class="bg-gray-100 px-4 py-2 rounded-xl flex-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+        />
+      </div>
+      <textarea
+        placeholder="Message"
+        class="bg-gray-100 px-4 py-2 rounded-xl h-48 md:h-[20rem] focus:outline-none focus:ring-2 focus:ring-gray-300 text-sm resize-none"
+      ></textarea>
+      <button
+        type="submit"
+        class="bg-blue-500 text-white py-2 rounded-xl font-bold flex justify-center items-center hover:cursor-pointer hover:bg-blue-600 transition"
+      >
+        <Send size={18} class="mt-0.5 mr-1" />
+        Send
+      </button>
+    </form>
+  </section>
+</Layout>
