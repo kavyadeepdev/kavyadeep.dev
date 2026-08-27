@@ -35,6 +35,13 @@ const { class: className, size = 18 } = Astro.props;
         const isDark = document.documentElement.classList.contains("dark");
         const willBeDark = !isDark;
 
+        // Subtle mobile haptic feedback
+        if ("vibrate" in navigator) {
+          try {
+            navigator.vibrate(10);
+          } catch {}
+        }
+
         // Fallback for browsers that do not support View Transitions
         if (!document.startViewTransition) {
           document.documentElement.classList.toggle("dark", willBeDark);

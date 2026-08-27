@@ -16,7 +16,7 @@ const featuredProjects = projects.filter((p) => p.featured);
 ---
 
 <Layout title="Kavyadeep Dev" description="Portfolio website of Kavyadeep Dev">
-  <section class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16">
+  <section class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-36 sm:pb-48">
     <div id="hero" class="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24 animate-fade-in">
       <h2 class="font-cal text-gray-700 dark:text-white text-3xl sm:text-4xl">
         Hi there! I'm Kavyadeep 👋
@@ -121,7 +121,7 @@ const featuredProjects = projects.filter((p) => p.featured);
         </a>
       </div>
     </div>
-    <div class="flex flex-col gap-4 animate-fade-in delay-150">
+    <div class="flex flex-col gap-4 animate-fade-in delay-150 mb-16 sm:mb-24">
       <div class="w-full flex justify-between items-center">
         <h3 class="font-cal text-gray-700 dark:text-white text-xl">
           Featured projects
@@ -133,7 +133,7 @@ const featuredProjects = projects.filter((p) => p.featured);
           View All ↗
         </a>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col gap-4 pb-12 sm:pb-16">
         {featuredProjects.map((project) => <ProjectCard {...project} />)}
       </div>
     </div>

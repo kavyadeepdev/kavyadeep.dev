@@ -27,6 +27,38 @@
 	font-family: "Cal Sans", sans-serif;
 }
 
+/* Base Mobile Touch & Accessibility Enhancements */
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
+html {
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+[role="button"],
+.cursor-pointer {
+	touch-action: manipulation;
+}
+
+/* Fast tactile active spring transitions */
+@layer utilities {
+	.touch-press {
+		transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1),
+			background-color 120ms ease-out,
+			opacity 120ms ease-out;
+	}
+	.touch-press:active {
+		transform: scale(0.965);
+	}
+}
+
 /* Micro-Particle Paper/Glass Grain Texture Layer */
 .grain-texture {
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");

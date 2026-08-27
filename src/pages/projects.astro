@@ -27,7 +27,7 @@ const extraTagsCount = extraTags.length;
   title="Projects | Kavyadeep Dev"
   description="Explore software projects, systems, and open-source contributions built by Kavyadeep Dev."
 >
-  <section class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-16 animate-fade-in">
+  <section class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-36 sm:pb-48 animate-fade-in">
     <div class="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24">
       <!-- Header -->
       <div class="flex flex-col gap-2">
@@ -159,7 +159,7 @@ const extraTagsCount = extraTags.length;
       </div>
 
       <!-- Project Cards List -->
-      <div id="projects-list" class="flex flex-col">
+      <div id="projects-list" class="flex flex-col gap-4 pb-12 sm:pb-16">
         {projects.map((project) => <ProjectCard {...project} />)}
       </div>
 
@@ -553,9 +553,18 @@ const extraTagsCount = extraTags.length;
       });
     }
 
+    function triggerHaptic(duration = 8) {
+      if ("vibrate" in navigator) {
+        try {
+          navigator.vibrate(duration);
+        } catch {}
+      }
+    }
+
     // Event: Pill Clicks (Multi-Select Support)
     pillButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
+        triggerHaptic(8);
         const pillValue = btn.getAttribute("data-filter-pill") || "all";
         if (pillValue === "all") {
           selectedTechs.clear();
@@ -575,6 +584,7 @@ const extraTagsCount = extraTags.length;
       const target = (e.target as HTMLElement).closest<HTMLElement>("[data-tag-btn]");
       if (target) {
         e.preventDefault();
+        triggerHaptic(8);
         const tag = target.getAttribute("data-tag-btn");
         if (tag) {
           const canonical = canonicalTagMap.get(tag.toLowerCase()) || tag;
@@ -599,6 +609,7 @@ const extraTagsCount = extraTags.length;
 
     // Event: Reset All & Clear All
     function resetAll() {
+      triggerHaptic(10);
       selectedTechs.clear();
       searchQuery = "";
       if (searchInput) {

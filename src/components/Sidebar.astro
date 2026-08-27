@@ -158,11 +158,11 @@ import TwitterIcon from "./icons/TwitterIcon.astro";
     </div>
 
     <!-- Resume Download -->
-    <div class="pb-8">
+    <div class="pt-2 pb-8">
       <a
         href="/KavyadeepDev_Resume.pdf"
         download
-        class="inline-flex items-center gap-2 bg-blue-600/85 dark:bg-blue-600/80 hover:bg-blue-600 dark:hover:bg-blue-500 text-white text-sm px-4.5 py-2.5 rounded-xl backdrop-blur-md border border-blue-400/40 dark:border-blue-400/30 shadow-xs hover:-translate-y-0.5 hover:shadow-md hover:border-blue-300/60 active:scale-95 active:translate-y-0 transition-all duration-200 ease-out font-medium"
+        class="w-full flex items-center justify-center gap-2 bg-blue-600/85 dark:bg-blue-600/80 hover:bg-blue-600 dark:hover:bg-blue-500 text-white text-sm px-4 py-2.5 rounded-xl backdrop-blur-md border border-blue-400/40 dark:border-blue-400/30 shadow-xs hover:-translate-y-0.5 hover:shadow-md hover:border-blue-300/60 active:scale-95 active:translate-y-0 transition-all duration-200 ease-out font-medium cursor-pointer"
       >
         <Download size={16} />
         Download CV
@@ -178,8 +178,17 @@ import TwitterIcon from "./icons/TwitterIcon.astro";
     const backdrop = document.getElementById("sidebar-backdrop");
     const drawer = document.getElementById("sidebar-drawer");
 
+    function triggerHaptic(duration = 10) {
+      if ("vibrate" in navigator) {
+        try {
+          navigator.vibrate(duration);
+        } catch {}
+      }
+    }
+
     function openSidebar() {
       if (!drawer || !backdrop) return;
+      triggerHaptic(12);
       drawer.classList.remove("-translate-x-full");
       drawer.classList.add("translate-x-0", "shadow-2xl");
       backdrop.classList.remove("hidden");
@@ -187,6 +196,7 @@ import TwitterIcon from "./icons/TwitterIcon.astro";
 
     function closeSidebar() {
       if (!drawer || !backdrop) return;
+      triggerHaptic(8);
       drawer.classList.add("-translate-x-full");
       drawer.classList.remove("translate-x-0", "shadow-2xl");
       backdrop.classList.add("hidden");
