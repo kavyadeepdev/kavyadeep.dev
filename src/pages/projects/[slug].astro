@@ -1,0 +1,229 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { projects, getProjectThumbnail, type Project } from "@/data/projects";
+import { ArrowLeft, ArrowRight, ExternalLink, CircleCheck } from "@lucide/astro";
+import GithubIcon from "@/components/icons/GithubIcon.astro";
+
+export function getStaticPaths() {
+  return projects.map((project, index) => ({
+    params: { slug: project.slug },
+    props: {
+      project,
+      prevProject: index > 0 ? projects[index - 1] : null,
+      nextProject: index < projects.length - 1 ? projects[index + 1] : null,
+    },
+  }));
+}
+
+interface Props {
+  project: Project;
+  prevProject: Project | null;
+  nextProject: Project | null;
+}
+
+const { project, prevProject, nextProject } = Astro.props;
+const thumbnail = getProjectThumbnail(project);
+---
+
+<Layout
+  title={`${project.title} | Projects | Kavyadeep Dev`}
+  description={project.description}
+>
+  <section
+    class="min-h-full w-full max-w-[40rem] min-w-0 pt-8 md:pt-[8rem] pb-36 sm:pb-48 animate-fade-in"
+  >
+    <!-- Back to Projects link -->
+    <div class="mb-6">
+      <a
+        href="/projects"
+        class="inline-flex items-center gap-2 text-xs font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all group"
+      >
+        <ArrowLeft
+          class="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-1"
+        />
+        Back to projects
+      </a>
+    </div>
+
+    <header class="flex flex-col gap-5 mb-8 min-w-0">
+      {
+        thumbnail && (
+          (project.liveUrl || project.githubUrl) ? (
+            <a
+              href={project.liveUrl || project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="overflow-hidden rounded-2xl w-full aspect-video max-h-72 ring-1 ring-neutral-200/60 dark:ring-neutral-700/60 shadow-xs bg-white/70 dark:bg-neutral-900/60 block group/thumb cursor-pointer relative"
+            >
+              <img
+                src={thumbnail}
+                alt={`${project.title} preview`}
+                class="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300 ease-out"
+                loading="eager"
+              />
+              <!-- External link indicator overlay -->
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+                <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/75 dark:bg-neutral-900/90 text-white text-xs font-medium backdrop-blur-md shadow-lg border border-white/20 transform translate-y-1 group-hover/thumb:translate-y-0 transition-transform duration-200">
+                  <span>Visit site</span>
+                  <ExternalLink class="w-3.5 h-3.5 text-white/90" />
+                </div>
+              </div>
+            </a>
+          ) : (
+            <div class="overflow-hidden rounded-2xl w-full aspect-video max-h-72 ring-1 ring-neutral-200/60 dark:ring-neutral-700/60 shadow-xs bg-white/70 dark:bg-neutral-900/60">
+              <img
+                src={thumbnail}
+                alt={`${project.title} preview`}
+                class="w-full h-full object-cover"
+                loading="eager"
+              />
+            </div>
+          )
+        )
+      }
+
+      <div class="flex flex-col gap-2 min-w-0">
+        <h1
+          class="font-cal text-gray-900 dark:text-white text-3xl sm:text-4xl tracking-tight leading-tight break-words"
+        >
+          {project.title}
+        </h1>
+        <p
+          class="text-sm sm:text-base text-gray-600 dark:text-neutral-300 leading-relaxed"
+        >
+          {project.description}
+        </p>
+      </div>
+
+      <!-- Action Links -->
+      <div class="flex flex-wrap gap-2.5">
+        {
+          project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-blue-500/50 dark:border-blue-400/40 bg-blue-50/60 dark:bg-blue-950/50 backdrop-blur-md text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white hover:-translate-y-0.5 hover:shadow-sm active:scale-95 transition-all duration-200 font-medium text-xs shadow-2xs cursor-pointer"
+            >
+              <ExternalLink class="w-3.5 h-3.5" />
+              Live Preview
+            </a>
+          )
+        }
+        {
+          project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-neutral-300/80 dark:border-neutral-700/70 bg-neutral-100/60 dark:bg-neutral-800/50 backdrop-blur-md text-neutral-700 dark:text-neutral-300 hover:bg-neutral-800 hover:text-white dark:hover:bg-neutral-200 dark:hover:text-neutral-900 hover:-translate-y-0.5 hover:shadow-sm active:scale-95 transition-all duration-200 font-medium text-xs shadow-2xs cursor-pointer"
+            >
+              <GithubIcon size={14} />
+              Source Code
+            </a>
+          )
+        }
+      </div>
+
+      <!-- Technology Tags -->
+      <div class="flex flex-wrap gap-1.5">
+        {
+          project.tags.map((tag) => (
+            <a
+              href={`/projects?tech=${encodeURIComponent(tag)}`}
+              class="text-xs px-2.5 py-1 bg-neutral-100/80 dark:bg-neutral-800/60 backdrop-blur-xs border border-neutral-200/70 dark:border-neutral-700/60 text-neutral-700 dark:text-neutral-200 rounded-lg font-medium hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150 cursor-pointer"
+            >
+              {tag}
+            </a>
+          ))
+        }
+      </div>
+    </header>
+
+    <!-- Detailed Content Sections -->
+    <div class="flex flex-col gap-6 text-neutral-700 dark:text-neutral-300">
+      {
+        project.longDescription && (
+          <section class="flex flex-col gap-3 p-5 sm:p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 backdrop-blur-md shadow-xs">
+            <h2 class="font-cal text-gray-900 dark:text-white text-xl">
+              Project Overview
+            </h2>
+            <p class="text-sm sm:text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
+              {project.longDescription}
+            </p>
+          </section>
+        )
+      }
+
+      {
+        project.highlights && project.highlights.length > 0 && (
+          <section class="flex flex-col gap-4 p-5 sm:p-6 rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/60 dark:bg-neutral-900/40 backdrop-blur-md shadow-xs">
+            <h2 class="font-cal text-gray-900 dark:text-white text-xl">
+              Key Highlights & Architecture
+            </h2>
+            <ul class="flex flex-col gap-3">
+              {project.highlights.map((highlight) => (
+                <li class="flex items-start gap-2.5 text-sm sm:text-base text-neutral-600 dark:text-neutral-300">
+                  <CircleCheck class="w-4 h-4 text-blue-500 dark:text-blue-400 mt-1 shrink-0" />
+                  <span class="leading-relaxed min-w-0">{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </div>
+
+    <footer
+      class="mt-12 pt-8 border-t border-neutral-200/70 dark:border-neutral-800/70 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 w-full min-w-0"
+    >
+      <div class="min-w-0">
+        {
+          prevProject ? (
+            <a
+              href={`/projects/${prevProject.slug}`}
+              class="flex flex-col gap-1 p-3.5 rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/40 dark:bg-neutral-900/30 hover:border-neutral-300 dark:hover:border-neutral-700 hover:bg-white/80 dark:hover:bg-neutral-900/60 transition-all group h-full justify-between min-w-0"
+            >
+              <span class="inline-flex items-center gap-1 text-[11px] text-neutral-400 dark:text-neutral-500 uppercase tracking-wider font-semibold">
+                <ArrowLeft class="w-3 h-3 transition-transform group-hover:-translate-x-0.5" />
+                Previous
+              </span>
+              <span class="font-cal text-sm text-gray-800 dark:text-white font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                {prevProject.title}
+              </span>
+            </a>
+          ) : (
+            <div
+              class="hidden sm:block h-full rounded-xl border border-transparent p-3.5"
+              aria-hidden="true"
+            />
+          )
+        }
+      </div>
+
+      <div class="min-w-0">
+        {
+          nextProject ? (
+            <a
+              href={`/projects/${nextProject.slug}`}
+              class="flex flex-col gap-1 p-3.5 rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/40 dark:bg-neutral-900/30 hover:border-neutral-300 dark:hover:border-neutral-700 hover:bg-white/80 dark:hover:bg-neutral-900/60 transition-all group h-full justify-between text-left sm:text-right min-w-0"
+            >
+              <span class="inline-flex items-center sm:justify-end gap-1 text-[11px] text-neutral-400 dark:text-neutral-500 uppercase tracking-wider font-semibold">
+                Next
+                <ArrowRight class="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+              </span>
+              <span class="font-cal text-sm text-gray-800 dark:text-white font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                {nextProject.title}
+              </span>
+            </a>
+          ) : (
+            <div
+              class="hidden sm:block h-full rounded-xl border border-transparent p-3.5"
+              aria-hidden="true"
+            />
+          )
+        }
+      </div>
+    </footer>
+  </section>
+</Layout>

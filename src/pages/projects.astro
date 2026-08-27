@@ -2,7 +2,15 @@
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import { projects } from "@/data/projects";
-import { Search, X, RotateCcw, SlidersHorizontal, Layers, ChevronDown, ChevronUp } from "@lucide/astro";
+import {
+  Search,
+  X,
+  RotateCcw,
+  SlidersHorizontal,
+  Layers,
+  ChevronDown,
+  ChevronUp,
+} from "@lucide/astro";
 
 // Calculate all unique tags with count, sorted by frequency then alphabetically
 const tagCounts = projects.reduce<Record<string, number>>((acc, project) => {
@@ -27,7 +35,9 @@ const extraTagsCount = extraTags.length;
   title="Projects | Kavyadeep Dev"
   description="Explore software projects, systems, and open-source contributions built by Kavyadeep Dev."
 >
-  <section class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-36 sm:pb-48 animate-fade-in">
+  <section
+    class="min-h-full w-full max-w-[40rem] pt-8 md:pt-[8rem] pb-36 sm:pb-48 animate-fade-in"
+  >
     <div class="flex flex-col gap-6 sm:gap-8 w-full mb-16 sm:mb-24">
       <!-- Header -->
       <div class="flex flex-col gap-2">
@@ -35,7 +45,8 @@ const extraTagsCount = extraTags.length;
           Projects 🚀
         </h2>
         <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
-          A collection of web apps, systems, and experiments I've designed and built.
+          A collection of web apps, systems, and experiments I've designed and
+          built.
         </p>
       </div>
 
@@ -46,7 +57,9 @@ const extraTagsCount = extraTags.length;
           <div
             class="group flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800/80 bg-white/70 dark:bg-neutral-900/60 backdrop-blur-xl shadow-xs focus-within:border-blue-500/70 focus-within:ring-3 focus-within:ring-blue-500/15 focus-within:bg-white dark:focus-within:bg-neutral-900 transition-all duration-200"
           >
-            <Search class="w-4 h-4 text-neutral-400 dark:text-neutral-500 shrink-0 group-focus-within:text-blue-500 transition-colors duration-150" />
+            <Search
+              class="w-4 h-4 text-neutral-400 dark:text-neutral-500 shrink-0 group-focus-within:text-blue-500 transition-colors duration-150"
+            />
             <input
               id="project-search"
               type="text"
@@ -76,10 +89,15 @@ const extraTagsCount = extraTags.length;
 
         <!-- Tech Filters -->
         <div class="flex flex-col gap-2.5">
-          <div class="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 px-0.5">
+          <div
+            class="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 px-0.5"
+          >
             <span class="flex items-center gap-1.5 font-medium">
               <SlidersHorizontal class="w-3.5 h-3.5" />
-              Filter by technology <span class="text-[11px] opacity-75 font-normal">(select multiple)</span>
+              Filter by technology <span
+                class="text-[11px] opacity-75 font-normal"
+                >(select multiple)</span
+              >
             </span>
             <button
               id="reset-all-filters-btn"
@@ -92,14 +110,21 @@ const extraTagsCount = extraTags.length;
           </div>
 
           <!-- Tag Pills List -->
-          <div id="tech-filter-group" class="flex flex-wrap gap-1.5 items-center" role="group" aria-label="Technology filters">
+          <div
+            id="tech-filter-group"
+            class="flex flex-wrap gap-1.5 items-center"
+            role="group"
+            aria-label="Technology filters"
+          >
             <!-- All Pill -->
             <button
               type="button"
               data-filter-pill="all"
               class="tech-pill active px-3 py-1 text-xs rounded-lg font-medium transition-all duration-200 cursor-pointer border bg-blue-600 border-blue-500 text-white shadow-xs shadow-blue-500/20"
             >
-              All <span class="ml-1 opacity-80 text-[11px]">({totalProjects})</span>
+              All <span class="ml-1 opacity-80 text-[11px]"
+                >({totalProjects})</span
+              >
             </button>
 
             <!-- Top Most-Used Tags (Always in primary visible group) -->
@@ -133,25 +158,41 @@ const extraTagsCount = extraTags.length;
             </div>
 
             <!-- More/Less Toggle Button -->
-            {extraTagsCount > 0 && (
-              <button
-                id="toggle-more-tags-btn"
-                type="button"
-                aria-expanded="false"
-                class="inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-lg font-medium transition-all duration-200 cursor-pointer border border-dashed border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-950/30"
-              >
-                <span id="toggle-more-tags-text">+{extraTagsCount} more</span>
-                <ChevronDown id="toggle-chevron-down" class="w-3 h-3 transition-transform" />
-                <ChevronUp id="toggle-chevron-up" class="w-3 h-3 hidden transition-transform" />
-              </button>
-            )}
+            {
+              extraTagsCount > 0 && (
+                <button
+                  id="toggle-more-tags-btn"
+                  type="button"
+                  aria-expanded="false"
+                  class="inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-lg font-medium transition-all duration-200 cursor-pointer border border-dashed border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-950/30"
+                >
+                  <span id="toggle-more-tags-text">+{extraTagsCount} more</span>
+                  <ChevronDown
+                    id="toggle-chevron-down"
+                    class="w-3 h-3 transition-transform"
+                  />
+                  <ChevronUp
+                    id="toggle-chevron-up"
+                    class="w-3 h-3 hidden transition-transform"
+                  />
+                </button>
+              )
+            }
           </div>
         </div>
 
         <!-- Filter Status Bar -->
-        <div id="filter-status-bar" class="flex flex-wrap items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400 px-0.5 pt-1.5 border-t border-neutral-200/50 dark:border-neutral-800/50">
-          <span id="results-count-text">Showing {totalProjects} of {totalProjects} projects</span>
-          <div id="active-tags-container" class="hidden flex-wrap items-center gap-1.5">
+        <div
+          id="filter-status-bar"
+          class="flex flex-wrap items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400 px-0.5 pt-1.5 border-t border-neutral-200/50 dark:border-neutral-800/50"
+        >
+          <span id="results-count-text"
+            >Showing {totalProjects} of {totalProjects} projects</span
+          >
+          <div
+            id="active-tags-container"
+            class="hidden flex-wrap items-center gap-1.5"
+          >
             <span class="text-[11px]">Filtered by:</span>
             <div id="active-tags-list" class="flex flex-wrap gap-1"></div>
           </div>
@@ -168,13 +209,20 @@ const extraTagsCount = extraTags.length;
         id="no-results-state"
         class="hidden flex-col items-center justify-center text-center p-8 sm:p-12 rounded-2xl border border-dashed border-neutral-300 dark:border-neutral-800 bg-white/30 dark:bg-neutral-900/30 backdrop-blur-sm"
       >
-        <div class="w-12 h-12 rounded-2xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-400 dark:text-neutral-500 mb-3 shadow-2xs">
+        <div
+          class="w-12 h-12 rounded-2xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-400 dark:text-neutral-500 mb-3 shadow-2xs"
+        >
           <Layers class="w-6 h-6" />
         </div>
-        <h3 class="font-cal text-gray-800 dark:text-neutral-200 text-lg font-medium">
+        <h3
+          class="font-cal text-gray-800 dark:text-neutral-200 text-lg font-medium"
+        >
           No projects found
         </h3>
-        <p id="no-results-desc" class="text-sm text-neutral-500 dark:text-neutral-400 mt-1 max-w-sm">
+        <p
+          id="no-results-desc"
+          class="text-sm text-neutral-500 dark:text-neutral-400 mt-1 max-w-sm"
+        >
           No projects matched your active search or technology filter.
         </p>
         <button
@@ -192,13 +240,20 @@ const extraTagsCount = extraTags.length;
 
 <script>
   function setupProjectFiltering() {
-    const searchInput = document.getElementById("project-search") as HTMLInputElement | null;
+    const searchInput = document.getElementById(
+      "project-search",
+    ) as HTMLInputElement | null;
     const clearSearchBtn = document.getElementById("clear-search-btn");
     const kbdHint = document.getElementById("search-kbd-hint");
-    const pillButtons = document.querySelectorAll<HTMLButtonElement>("[data-filter-pill]");
-    const projectCards = document.querySelectorAll<HTMLElement>("[data-project-card]");
+    const pillButtons =
+      document.querySelectorAll<HTMLButtonElement>("[data-filter-pill]");
+    const projectCards = document.querySelectorAll<HTMLElement>(
+      "[data-project-card]",
+    );
     const resultsCountText = document.getElementById("results-count-text");
-    const activeTagsContainer = document.getElementById("active-tags-container");
+    const activeTagsContainer = document.getElementById(
+      "active-tags-container",
+    );
     const activeTagsList = document.getElementById("active-tags-list");
     const resetAllBtn = document.getElementById("reset-all-filters-btn");
     const noResultsState = document.getElementById("no-results-state");
@@ -239,7 +294,8 @@ const extraTagsCount = extraTags.length;
         } else {
           extraTagsContainer.classList.add("hidden");
           const extraCount = extraTagsContainer.children.length;
-          if (toggleMoreTagsText) toggleMoreTagsText.textContent = `+${extraCount} more`;
+          if (toggleMoreTagsText)
+            toggleMoreTagsText.textContent = `+${extraCount} more`;
           toggleChevronDown?.classList.remove("hidden");
           toggleChevronUp?.classList.add("hidden");
         }
@@ -260,7 +316,10 @@ const extraTagsCount = extraTags.length;
 
       if (initialTech) {
         // Support comma-separated tags or multiple tags
-        const tags = initialTech.split(",").map((t) => decodeURIComponent(t).trim()).filter(Boolean);
+        const tags = initialTech
+          .split(",")
+          .map((t) => decodeURIComponent(t).trim())
+          .filter(Boolean);
         let hasExtraSelected = false;
         tags.forEach((tag) => {
           const lower = tag.toLowerCase();
@@ -270,7 +329,9 @@ const extraTagsCount = extraTags.length;
 
             // Check if this tag is inside the extra tags container
             if (extraTagsContainer) {
-              const insideExtra = extraTagsContainer.querySelector(`[data-filter-pill="${canonical}"]`);
+              const insideExtra = extraTagsContainer.querySelector(
+                `[data-filter-pill="${canonical}"]`,
+              );
               if (insideExtra) hasExtraSelected = true;
             }
           } else {
@@ -280,7 +341,11 @@ const extraTagsCount = extraTags.length;
               if (canonLower.includes(lower) || lower.includes(canonLower)) {
                 selectedTechs.add(canonVal);
                 matched = true;
-                if (extraTagsContainer?.querySelector(`[data-filter-pill="${canonVal}"]`)) {
+                if (
+                  extraTagsContainer?.querySelector(
+                    `[data-filter-pill="${canonVal}"]`,
+                  )
+                ) {
                   hasExtraSelected = true;
                 }
                 break;
@@ -341,7 +406,7 @@ const extraTagsCount = extraTags.length;
               "border-blue-500",
               "text-white",
               "shadow-xs",
-              "shadow-blue-500/20"
+              "shadow-blue-500/20",
             );
             btn.classList.remove(
               "bg-white/70",
@@ -349,7 +414,7 @@ const extraTagsCount = extraTags.length;
               "border-neutral-200/80",
               "dark:border-neutral-800/80",
               "text-neutral-600",
-              "dark:text-neutral-300"
+              "dark:text-neutral-300",
             );
           } else {
             btn.classList.remove(
@@ -357,7 +422,7 @@ const extraTagsCount = extraTags.length;
               "border-blue-500",
               "text-white",
               "shadow-xs",
-              "shadow-blue-500/20"
+              "shadow-blue-500/20",
             );
             btn.classList.add(
               "bg-white/70",
@@ -365,7 +430,7 @@ const extraTagsCount = extraTags.length;
               "border-neutral-200/80",
               "dark:border-neutral-800/80",
               "text-neutral-600",
-              "dark:text-neutral-300"
+              "dark:text-neutral-300",
             );
           }
         } else {
@@ -376,7 +441,7 @@ const extraTagsCount = extraTags.length;
               "border-blue-500",
               "text-white",
               "shadow-xs",
-              "shadow-blue-500/20"
+              "shadow-blue-500/20",
             );
             btn.classList.remove(
               "bg-white/70",
@@ -384,7 +449,7 @@ const extraTagsCount = extraTags.length;
               "border-neutral-200/80",
               "dark:border-neutral-800/80",
               "text-neutral-600",
-              "dark:text-neutral-300"
+              "dark:text-neutral-300",
             );
           } else {
             btn.classList.remove(
@@ -392,7 +457,7 @@ const extraTagsCount = extraTags.length;
               "border-blue-500",
               "text-white",
               "shadow-xs",
-              "shadow-blue-500/20"
+              "shadow-blue-500/20",
             );
             btn.classList.add(
               "bg-white/70",
@@ -400,7 +465,7 @@ const extraTagsCount = extraTags.length;
               "border-neutral-200/80",
               "dark:border-neutral-800/80",
               "text-neutral-600",
-              "dark:text-neutral-300"
+              "dark:text-neutral-300",
             );
           }
         }
@@ -553,18 +618,9 @@ const extraTagsCount = extraTags.length;
       });
     }
 
-    function triggerHaptic(duration = 8) {
-      if ("vibrate" in navigator) {
-        try {
-          navigator.vibrate(duration);
-        } catch {}
-      }
-    }
-
     // Event: Pill Clicks (Multi-Select Support)
     pillButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        triggerHaptic(8);
         const pillValue = btn.getAttribute("data-filter-pill") || "all";
         if (pillValue === "all") {
           selectedTechs.clear();
@@ -581,10 +637,11 @@ const extraTagsCount = extraTags.length;
 
     // Event: Click tag buttons on individual project cards
     document.addEventListener("click", (e) => {
-      const target = (e.target as HTMLElement).closest<HTMLElement>("[data-tag-btn]");
+      const target = (e.target as HTMLElement).closest<HTMLElement>(
+        "[data-tag-btn]",
+      );
       if (target) {
         e.preventDefault();
-        triggerHaptic(8);
         const tag = target.getAttribute("data-tag-btn");
         if (tag) {
           const canonical = canonicalTagMap.get(tag.toLowerCase()) || tag;
@@ -596,7 +653,9 @@ const extraTagsCount = extraTags.length;
 
           // If the clicked tag is in extra tags, expand to make it visible
           if (extraTagsContainer) {
-            const insideExtra = extraTagsContainer.querySelector(`[data-filter-pill="${canonical}"]`);
+            const insideExtra = extraTagsContainer.querySelector(
+              `[data-filter-pill="${canonical}"]`,
+            );
             if (insideExtra && !isTagsExpanded) {
               setTagsExpanded(true);
             }
@@ -609,7 +668,6 @@ const extraTagsCount = extraTags.length;
 
     // Event: Reset All & Clear All
     function resetAll() {
-      triggerHaptic(10);
       selectedTechs.clear();
       searchQuery = "";
       if (searchInput) {
@@ -627,7 +685,7 @@ const extraTagsCount = extraTags.length;
         e.key === "/" &&
         document.activeElement !== searchInput &&
         !["input", "textarea"].includes(
-          document.activeElement?.tagName.toLowerCase() || ""
+          document.activeElement?.tagName.toLowerCase() || "",
         )
       ) {
         e.preventDefault();

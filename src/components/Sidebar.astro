@@ -178,17 +178,8 @@ import TwitterIcon from "./icons/TwitterIcon.astro";
     const backdrop = document.getElementById("sidebar-backdrop");
     const drawer = document.getElementById("sidebar-drawer");
 
-    function triggerHaptic(duration = 10) {
-      if ("vibrate" in navigator) {
-        try {
-          navigator.vibrate(duration);
-        } catch {}
-      }
-    }
-
     function openSidebar() {
       if (!drawer || !backdrop) return;
-      triggerHaptic(12);
       drawer.classList.remove("-translate-x-full");
       drawer.classList.add("translate-x-0", "shadow-2xl");
       backdrop.classList.remove("hidden");
@@ -196,7 +187,6 @@ import TwitterIcon from "./icons/TwitterIcon.astro";
 
     function closeSidebar() {
       if (!drawer || !backdrop) return;
-      triggerHaptic(8);
       drawer.classList.add("-translate-x-full");
       drawer.classList.remove("translate-x-0", "shadow-2xl");
       backdrop.classList.add("hidden");
